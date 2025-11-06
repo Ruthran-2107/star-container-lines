@@ -144,7 +144,7 @@
       <p><strong>✉️ Email:</strong> starcontainerlinesmaa@gmail.com</p>
     </div>
 
-    <form class="contact-form">
+    <!--<form class="contact-form">
       <input type="text" placeholder="Your Name" required>
       <input type="email" placeholder="Your Email" required>
       <input type="text" placeholder="Subject">
@@ -152,7 +152,41 @@
       <button type="submit" class="btn">Send Message</button>
     </form>
   </div>
-</section>
+</section>-->
+
+    <!-- Contact Form (WhatsApp only, no database needed) -->
+<form class="contact-form" onsubmit="return sendToWhatsApp(event)">
+  <input type="text" id="name" placeholder="Your Name" required />
+  <input type="email" id="email" placeholder="Your Email" required />
+  <input type="text" id="subject" placeholder="Subject" />
+  <textarea id="message" placeholder="Your Message" required></textarea>
+  <button type="submit" class="btn">Send Message</button>
+</form>
+
+<script>
+function sendToWhatsApp(event) {
+  event.preventDefault();
+
+  // your WhatsApp number without + or spaces
+  const phoneNumber = "919445343455";  
+
+  // get form values
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const subject = document.getElementById("subject").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  // build the WhatsApp message
+  const text = `New inquiry from website:%0A%0A👤 Name: ${encodeURIComponent(name)}%0A📧 Email: ${encodeURIComponent(email)}%0A📝 Subject: ${encodeURIComponent(subject)}%0A💬 Message: ${encodeURIComponent(message)}`;
+
+  // create WhatsApp link
+  const whatsappURL = `https://wa.me/${phoneNumber}?text=${text}`;
+
+  // open WhatsApp
+  window.open(whatsappURL, "_blank");
+  return false;
+}
+</script>
 
   <!-- ===== GLOBAL PRESENCE SECTION ===== -->
 <section class="global" id="global">
@@ -177,7 +211,7 @@
 </section>
 
   <!-- ===== QUOTE FORM ===== -->
-  <section class="quote reveal" id="quote">
+  <!--<section class="quote reveal" id="quote">
     <h2>Request a Quote</h2>
     <form id="quoteForm">
       <input type="text" id="name" placeholder="Your Name" required />
@@ -187,8 +221,48 @@
       <button type="submit">Submit</button>
       <p class="success-message" id="successMsg">✅ Thank you! We'll contact you soon.</p>
     </form>
-  </section>
+  </section>-->
 
+<section class="quote reveal" id="quote">
+    <h2>Request a Quote</h2>
+<form  id="quoteForm" onsubmit="return sendMail(event)">
+  <input type="text" id="name" placeholder="Your Name" required>
+  <input type="email" id="email" placeholder="Your Email" required>
+  <input type="text" id="service" placeholder="Required Service (e.g. Freight Forwarding)" required>
+  <textarea id="message" placeholder="Message / Cargo Details" required></textarea>
+  <button type="submit">Submit</button>
+</form>
+
+</section>
+
+<script>
+function sendMail(event) {
+  event.preventDefault();
+
+  // Replace this with your email address
+  const emailTo = "starcontainerlinesmaa@gmail.com";
+
+  // Get form data
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const service = document.getElementById("service").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  // Create the email subject and body
+  const subject = `New Quote Request from ${name}`;
+  const body = `Name: ${name}%0AEmail: ${email}%0AService: ${service}%0A%0AMessage:%0A${message}`;
+
+  // Create mailto link
+  const mailtoLink = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${body}`;
+
+  // Open email client
+  window.location.href = mailtoLink;
+  return false;
+}
+</script>
+
+
+      
 
 
   <!-- ===== FOOTER SECTION ===== -->
@@ -248,6 +322,7 @@
 </body>
 
 </html>
+
 
 
 
